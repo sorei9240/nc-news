@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 const ArticleList = () => {
     const [articles, setArticles] = useState([]);
@@ -25,15 +26,19 @@ const ArticleList = () => {
                             className="w-20 h-20 object-cover rounded"
                         />
                         <div>
+                            <Link to={`/articles/${article.article_id}`}>
                             <h3 className="font-semibold text-white">{article.title}</h3>
                             <p className="text-sm text-gray-100">
                                 Posted by {article.author} • {new Date(article.created_at).toLocaleDateString('en-gb')}
                             </p>
                             <div className="mt-2 text-sm text-gray-100">
-                                <span>💬 {article.comment_count} • </span>
-                                <span>👍 {article.votes} • </span>
+                                <span>💬 {article.comment_count} </span>
+                                <span className='mx-1'>•</span>
+                                <span>👍 {article.votes}</span>
+                                <span className='mx-1'>•</span>
                                 <span>📂 {article.topic}</span>
                             </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
