@@ -9,7 +9,6 @@ const ArticleList = () => {
         axios.get('https://sorei9240-nc-news.onrender.com/api/articles', {params: {limit: 100}})
             .then(({data}) => {
                 setArticles(data.articles)
-                console.log(data.articles)
             })
             .catch((error) => console.log(error))
     }, [])
@@ -22,7 +21,7 @@ const ArticleList = () => {
                     <div className="flex gap-4">
                         <img 
                             src={article.article_img_url} 
-                            alt="" 
+                            alt="article image" 
                             className="w-20 h-20 object-cover rounded"
                         />
                         <div>
