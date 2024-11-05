@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import Vote from './Vote'
 
 const ArticleList = () => {
     const [articles, setArticles] = useState([]);
@@ -37,14 +38,14 @@ const ArticleList = () => {
                                 <p className="text-sm text-gray-100">
                                     Posted by {article.author} • {new Date(article.created_at).toLocaleDateString('en-gb')}
                                 </p>
-                                <div className="mt-2 text-sm text-gray-100">
-                                    <span>💬 {article.comment_count} </span>
-                                    <span className='mx-1'>•</span>
-                                    <span>👍 {article.votes}</span>
-                                    <span className='mx-1'>•</span>
-                                    <span>📂 {article.topic}</span>
-                                </div>
                                 </Link>
+                                <div className="mt-2 text-sm text-gray-100 flex">
+                                    <span>💬 {article.comment_count} </span>
+                                    <span className='mx-2'>•</span>
+                                    <span>📂 {article.topic}</span>
+                                    <span className='mx-2'>•</span>
+                                    <Vote type="articles" id={article.article_id} currentVotes={article.votes}/>
+                                </div>     
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ const Article = () => {
                 setIsLoading(false);
             })
             .catch(error => console.log(error))
-    }, [article_id])
+    }, [])
 
     if (isLoading) {
         return <p className='text-white text-3xl'>Loading...</p>

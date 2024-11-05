@@ -18,6 +18,14 @@ const CommentsList = ({article_id}) => {
         return <p className='text-white text-xl'>Loading comments...</p>
     }
 
+    if (comments.length === 0) {
+        return (
+            <div className='mt-10 p-20 text-lg text-center bg-slate-800'>
+                Be the first to comment!
+            </div>
+        )
+    }
+
     return (
         <div>
             <div>
