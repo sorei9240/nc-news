@@ -5,18 +5,23 @@ import { useParams } from 'react-router-dom';
 const Article = () => {
     const { article_id } = useParams();
     const [article, setArticle] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get(`https://sorei9240-nc-news.onrender.com/api/articles/${article_id}`)
             .then((response) => {
-                setArticle(response.data.article)
-                console.log(response.data.article)
+                setArticle(response.data.article);
+                setIsLoading(false);
             })
             .catch(error => console.log(error))
     }, [article_id])
 
+    if (isLoading) {
+        return <p className='text-white text-3xl'>Loading...</p>
+    }
+
     return(
-        <div className="text-white h-screen m-8 max-w-3xl mx-auto">
+        <div className="text-white m-8 max-w-3xl mx-auto">
             <h2 className='text-xl'>{article.title}</h2>
             <p></p>
             <p className='text-sm mb-4'>

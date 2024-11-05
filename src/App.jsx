@@ -5,7 +5,7 @@ import Article from './components/Article';
 
 const App = () => {
   return (
-    <div className="bg-slate-900">
+    <div className="bg-slate-900 min-h-screen">
       <Header />
       <div>
         <Routes>

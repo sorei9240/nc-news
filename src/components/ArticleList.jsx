@@ -4,14 +4,21 @@ import { Link } from 'react-router-dom'
 
 const ArticleList = () => {
     const [articles, setArticles] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get('https://sorei9240-nc-news.onrender.com/api/articles', {params: {limit: 100}})
             .then(({data}) => {
-                setArticles(data.articles)
+                setArticles(data.articles);
+                setIsLoading(false);
             })
             .catch((error) => console.log(error))
     }, [])
+
+    if (isLoading) {
+        return <p className='text-white text-3xl'>Loading...</p>
+    }
+
     return (
         <div className="max-w-3xl mx-auto p-4">
             <h2 className="text-2xl font-bold text-white mb-5 mt-5">Articles</h2>
