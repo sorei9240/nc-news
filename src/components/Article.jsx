@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import CommentsList from './CommentsList'
 
 const Article = () => {
     const { article_id } = useParams();
@@ -33,6 +34,7 @@ const Article = () => {
                 <span className='mx-2'>•</span>
                 <span>👍 {article.votes}</span>
             </div>
+            <CommentsList article_id={article_id} />
         </div>
     )
 }
