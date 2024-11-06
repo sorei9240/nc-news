@@ -17,7 +17,7 @@ const ArticleList = () => {
     }, [])
 
     if (isLoading) {
-        return <p className='text-white text-3xl'>Loading...</p>
+        return <p className='text-white text-3xl text-center mt-20'>Loading...</p>
     }
 
     return (

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Vote from './Vote'
 
 const CommentsList = ({article_id}) => {
     const [comments, setComments] = useState([]);
@@ -40,7 +41,7 @@ const CommentsList = ({article_id}) => {
                                 {comment.body}
                             </p>
                             <div className="mt-2 text-sm text-gray-100">
-                                👍 {comment.votes}
+                                <Vote type="comments" id={comment.comment_id} currentVotes={comment.votes}/>
                             </div>
                         </div>
                     </div>
