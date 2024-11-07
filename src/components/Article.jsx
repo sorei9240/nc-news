@@ -11,6 +11,7 @@ const Article = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get(`https://sorei9240-nc-news.onrender.com/api/articles/${article_id}`)
             .then((response) => {
                 setArticle(response.data.article);
@@ -22,7 +23,7 @@ const Article = () => {
                     setError('404 - Article Not Found')
                 }
             })
-    }, [])
+    }, [article_id])
 
     if (isLoading) {
         return <p className='text-white text-3xl text-center mt-20'>Loading...</p>

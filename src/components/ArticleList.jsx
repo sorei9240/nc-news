@@ -8,6 +8,7 @@ const ArticleList = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get('https://sorei9240-nc-news.onrender.com/api/articles', {params: {limit: 100}})
             .then(({data}) => {
                 setArticles(data.articles);
