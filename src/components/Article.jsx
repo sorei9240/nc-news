@@ -25,6 +25,15 @@ const Article = () => {
             })
     }, [article_id])
 
+    const updateCount = (increment = false) => {
+        setArticle(currentArticle => ({
+            ...currentArticle,
+            comment_count: increment 
+                ? currentArticle.comment_count + 1
+                : currentArticle.comment_count - 1
+        }));
+    };
+
     if (isLoading) {
         return <p className='text-white text-3xl text-center mt-20'>Loading...</p>
     }
@@ -48,7 +57,7 @@ const Article = () => {
                 <span className='mx-2'>•</span>
                 <Vote type="articles" id={article.article_id} currentVotes={article.votes}/>
             </div>
-            <CommentsList article_id={article_id} />
+            <CommentsList article_id={article_id} onDelete={() => updateCount(false)} onAdd={() => updateCount(true)}/>
         </div>
     )
 }

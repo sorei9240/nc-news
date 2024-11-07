@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Vote from './Vote'
 import NewComment from './NewComment';
+import Delete from './Delete';
 
-const CommentsList = ({article_id}) => {
+const CommentsList = ({article_id, onDelete, onAdd}) => {
     const [comments, setComments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const user = 'tickle122';
 
     useEffect(() => {
         setIsLoading(true);
@@ -23,7 +25,7 @@ const CommentsList = ({article_id}) => {
 
     return (
         <div>
-            <NewComment article_id={article_id} setComments={setComments} />
+            <NewComment article_id={article_id} setComments={setComments} onAdd={onAdd}/>
             
             {comments.length === 0 ? (
                 <div className='p-20 text-lg text-center bg-slate-800'>
@@ -37,11 +39,12 @@ const CommentsList = ({article_id}) => {
                         <div>
                             <p className="text-sm text-gray-100 mb-2">
                                 {comment.author} • {new Date(comment.created_at).toLocaleDateString('en-gb')}
+                                {comment.author === user && (<Delete id={comment.comment_id} author={comment.author} setComments={setComments} onDelete={onDelete}/>)}
                             </p>
                             <p className='text-white'>
                                 {comment.body}
                             </p>
-                            <div className="mt-2 text-sm text-gray-100">
+                            <div className="mt-2 text-sm text-gray-100 flex">
                                 <Vote type="comments" id={comment.comment_id} currentVotes={comment.votes}/>
                             </div>
                         </div>

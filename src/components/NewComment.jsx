@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const NewComment = ({ article_id, setComments }) => {
+const NewComment = ({ article_id, setComments, onAdd }) => {
     const [newComment, setNewComment] = useState('')
     const [isSubmit, setIsSubmit] = useState(false);
     const [error, setError] = useState(null);
@@ -19,6 +19,8 @@ const NewComment = ({ article_id, setComments }) => {
                 setSuccess(true)
                 setIsSubmit(false);
                 setNewComment('')
+                onAdd()
+                setTimeout(() => setSuccess(false), 8000)
             })
             .catch((error) => {
                 setError('Failed to post comment.')
