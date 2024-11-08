@@ -28,7 +28,7 @@ const CommentsList = ({article_id, onDelete, onAdd}) => {
             <NewComment article_id={article_id} setComments={setComments} onAdd={onAdd}/>
             
             {comments.length === 0 ? (
-                <div className='p-20 text-lg text-center bg-slate-800 rounded-lg'>
+                <div className='p-20 text-lg text-center text-white bg-slate-800 rounded-lg'>
                     Be the first to comment!
                 </div>
             ) : (
