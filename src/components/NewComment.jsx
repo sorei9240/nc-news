@@ -30,7 +30,7 @@ const NewComment = ({ article_id, setComments, onAdd }) => {
 
         return (
             <form onSubmit={handleSubmit} className="mb-8 bg-slate-800 p-5 mt-8 rounded-lg">
-            <h3 className="text-lg mb-4">Add a Comment</h3>
+            <h3 className="text-lg mb-4 text-white">Add a Comment</h3>
             <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
