@@ -3,7 +3,7 @@ import Delete from "./Delete";
 
 const CommentCard = ({ comment, setComments, onDelete, user }) => {
     return (
-        <div className="flex gap-4 my-4 bg-slate-800 p-5">
+        <div className="flex gap-4 my-4 bg-slate-800 p-5 rounded-lg">
             <div>
                 <p className="text-sm text-gray-100 mb-2">
                     {comment.author} • {new Date(comment.created_at).toLocaleDateString('en-gb')}

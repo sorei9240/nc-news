@@ -46,19 +46,26 @@ const Article = () => {
     }
 
     return(
-        <div className="text-white m-8 max-w-3xl mx-auto">
-            <h2 className='text-xl'>{article.title}</h2>
-            <p></p>
-            <p className='text-sm mb-4'>
-                {article.author} • {new Date(article.created_at).toLocaleDateString('en-gb')}
-            </p>
-            <p>{article.body}</p>
-            <div className='mt-2 flex'>
-                <span> 💬 {article.comment_count}</span>
-                <span className='mx-2'>•</span>
-                <Vote type="articles" id={article.article_id} currentVotes={article.votes}/>
+        <div className="max-w-3xl mx-auto p-4">
+            <div className="bg-slate-800 p-5 mb-4 rounded-lg">
+                <h2 className='text-xl font-semibold text-white'>{article.title}</h2>
+                <p className='text-sm mb-4 text-gray-300'>
+                    {article.author} • {new Date(article.created_at).toLocaleDateString('en-gb')}
+                </p>
+                <p className="text-white">{article.body}</p>
+                <div className='mt-2 flex text-gray-300'>
+                    <span>💬 {article.comment_count}</span>
+                    <span className='mx-2'>•</span>
+                    <Vote type="articles" id={article.article_id} currentVotes={article.votes}/>
+                </div>
             </div>
-            <CommentsList article_id={article_id} onDelete={() => updateCount(false)} onAdd={() => updateCount(true)}/>
+            <div className="space-y-4">
+                <CommentsList 
+                    article_id={article_id} 
+                    onDelete={() => updateCount(false)} 
+                    onAdd={() => updateCount(true)}
+                />
+            </div>
         </div>
     )
 }
