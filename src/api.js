@@ -2,11 +2,10 @@ import axios from 'axios';
 
 const url = 'https://sorei9240-nc-news.onrender.com/api';
 
-export function getArticles(topic = null) {
-    const params = { limit: 100 }
-    if (topic) params.topic = topic;
-    
-    return axios.get(`${url}/articles`, { params })
+export function getArticles(topic = null, sort_by = 'created_at', order = 'desc') {
+    return axios.get(`${url}/articles`, {
+        params: {topic, sort_by, order, limit: 100}
+    })
     .then(response => response.data);
 }
 

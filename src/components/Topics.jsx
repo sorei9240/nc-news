@@ -26,7 +26,7 @@ const Topics = () => {
             })
             .catch((error) => {
                 console.log(error);
-                setError('Failted to load topics');
+                setError('Failed to load topics');
                 setIsLoading(false);
             });
     }, []);
