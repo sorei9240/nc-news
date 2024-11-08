@@ -72,8 +72,8 @@ const ArticleList = () => {
                     </p>
                 ) : (
                     articles.map((article) => (
-                        <div key={article.article_id} className="bg-slate-800">
-                            <ArticleCard article={article} />
+                        <div key={article.article_id}  className="bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors">
+                            <ArticleCard article={article}/>
                         </div>
                     ))
                 )}

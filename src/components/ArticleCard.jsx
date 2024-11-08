@@ -3,7 +3,7 @@ import Vote from './Vote'
 
 const ArticleCard = ({ article }) => {
     return (
-        <div className="p-8 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors w-full">
+        <div className="p-8 w-full">
             <div className="flex gap-4">
                 <img 
                     src={article.article_img_url} 
