@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { getArticleById } from '../api';
 import CommentsList from './CommentsList'
 import Vote from './Vote';
+import Loading from './Loading';
 
 const Article = () => {
     const { article_id } = useParams();
@@ -11,19 +12,19 @@ const Article = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        setIsLoading(true)
-        axios.get(`https://sorei9240-nc-news.onrender.com/api/articles/${article_id}`)
-            .then((response) => {
-                setArticle(response.data.article);
+        setIsLoading(true);
+        getArticleById(article_id)
+            .then((data) => {
+                setArticle(data.article);
                 setIsLoading(false);
             })
             .catch((error) => {
-                if (error.response.status === 404) {
-                    setIsLoading(false)
-                    setError('404 - Article Not Found')
+                if (error.response?.status === 404) {
+                    setIsLoading(false);
+                    setError('404 - Article Not Found');
                 }
-            })
-    }, [article_id])
+            });
+    }, [article_id]);
 
     const updateCount = (increment = false) => {
         setArticle(currentArticle => ({
@@ -35,7 +36,7 @@ const Article = () => {
     };
 
     if (isLoading) {
-        return <p className='text-white text-3xl text-center mt-20'>Loading...</p>
+        return <Loading/>
     }
 
     if (error) {

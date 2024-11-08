@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { deleteComment } from '../api';
 
 const Delete = ({id, setComments, onDelete}) => {
     const [isDelete, setIsDelete] = useState(false)
@@ -10,21 +10,20 @@ const Delete = ({id, setComments, onDelete}) => {
         }
         setIsDelete(true);
 
-        axios.delete(`https://sorei9240-nc-news.onrender.com/api/comments/${id}`)
+        deleteComment(id)
             .then(() => {
                 setComments((currentComments) => 
                     currentComments.filter((comment) => comment.comment_id !== id)
                 );
                 setIsDelete(false);
-                onDelete()
+                onDelete();
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
                 alert('Unable to delete comment. Please try again.');
                 setIsDelete(false);
-            })
+            });
     }
-
 
     return (
         <button

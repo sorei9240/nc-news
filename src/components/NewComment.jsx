@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { addComment } from '../api';
 
 const NewComment = ({ article_id, setComments, onAdd }) => {
     const [newComment, setNewComment] = useState('')
@@ -10,22 +10,22 @@ const NewComment = ({ article_id, setComments, onAdd }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmit(true);
-        const commentData = {username: 'tickle122', body: newComment}
+        const commentData = {username: 'tickle122', body: newComment.trim()}
 
-        axios.post(`https://sorei9240-nc-news.onrender.com/api/articles/${article_id}/comments`, commentData)
-            .then((response) => {
-                setComments(comments => [response.data.comment, ...comments])
-                console.log(commentData)
-                setSuccess(true)
+        addComment(article_id, commentData)
+            .then((data) => {
+                setComments(comments => [data.comment, ...comments]);
+                setSuccess(true);
                 setIsSubmit(false);
-                setNewComment('')
-                onAdd()
-                setTimeout(() => setSuccess(false), 8000)
+                setNewComment('');
+                onAdd();
+                setTimeout(() => setSuccess(false), 8000);
             })
             .catch((error) => {
-                setError('Failed to post comment.')
+                setError('Failed to post comment.');
                 setIsSubmit(false);
-            })
+                setTimeout(() => setError(null), 8000);
+            });
     }
 
         return (
@@ -48,7 +48,7 @@ const NewComment = ({ article_id, setComments, onAdd }) => {
                 type="submit"
                 disabled={isSubmit}
                 className={
-                    `px-4 py-2 rounded ${isSubmit ? 'bg-slate-600 cursor-not-allowed' : 'bg-cyan-400 text-slate-900 hover:bg-cyan-500'
+                    `px-4 py-2 rounded ${isSubmit ? 'bg-slate-600 cursor-not-allowed' : 'transition ease-in-out delay-150 bg-cyan-600 hover:-translate-y-1 hover:scale-105 hover:bg-purple-500 duration-300'
                 }`}
             >
                 {isSubmit ? 'Posting...' : 'Reply'}

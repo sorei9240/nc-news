@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import Vote from './Vote'
+import { getComments } from '../api';
 import NewComment from './NewComment';
-import Delete from './Delete';
+import CommentCard from './CommentCard';
+import Loading from './Loading';
 
 const CommentsList = ({article_id, onDelete, onAdd}) => {
     const [comments, setComments] = useState([]);
@@ -11,16 +11,16 @@ const CommentsList = ({article_id, onDelete, onAdd}) => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get(`https://sorei9240-nc-news.onrender.com/api/articles/${article_id}/comments`)
-            .then((response) => {
-                setComments(response.data.comments);
+        getComments(article_id)
+            .then((data) => {
+                setComments(data.comments);
                 setIsLoading(false);
             })
-            .catch(error => console.log(error))
-    }, [])
+            .catch(error => console.log(error));
+    }, [article_id]);
 
     if (isLoading) {
-        return <p className='text-white text-xl'>Loading comments...</p>
+        return <Loading/>
     }
 
     return (
@@ -34,22 +34,13 @@ const CommentsList = ({article_id, onDelete, onAdd}) => {
             ) : (
             <div>
             {comments.map((comment) => (
-                <div key={comment.comment_id}>
-                    <div className="flex gap-4 my-4 bg-slate-800 p-5">
-                        <div>
-                            <p className="text-sm text-gray-100 mb-2">
-                                {comment.author} • {new Date(comment.created_at).toLocaleDateString('en-gb')}
-                                {comment.author === user && (<Delete id={comment.comment_id} author={comment.author} setComments={setComments} onDelete={onDelete}/>)}
-                            </p>
-                            <p className='text-white'>
-                                {comment.body}
-                            </p>
-                            <div className="mt-2 text-sm text-gray-100 flex">
-                                <Vote type="comments" id={comment.comment_id} currentVotes={comment.votes}/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <CommentCard
+                    key={comment.comment_id}
+                    comment={comment}
+                    setComments={setComments}
+                    onDelete={onDelete}
+                    user={user}
+                />
             ))}
             </div>
         )}
